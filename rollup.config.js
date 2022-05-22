@@ -1,6 +1,10 @@
 import {readFileSync} from "fs";
 import {terser} from "rollup-plugin-terser";
-import * as meta from "./package.json";
+import * as pkgJson from "./package.json";
+
+const meta = { ...pkgJson };
+// Remove the fork scope from the package name.
+meta.name = meta.name.split("/")[1] || meta.name;
 
 // Extract copyrights from the LICENSE.
 const copyright = readFileSync("./LICENSE", "utf-8")
